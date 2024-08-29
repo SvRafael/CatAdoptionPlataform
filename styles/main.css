@@ -1,0 +1,56 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+/* @import "~@fontsource/inter/index.css"; */
+
+body {
+    font-family: 'Inter', sans-serif;
+}
+
+.bg-main-color{
+    background-color: #4E2096;
+}
+
+.bg-primary-color{
+    background-color: #26203B;
+}
+
+.text-main{
+    color: #4E2096;
+}
+
+.text-primary{
+    color: #26203B;
+}
+
+.text-secondary{
+    color: #4D4E4E;
+}
+
+.stroke{
+    border: 1px solid #DFE4E8;
+}
+
+.stroke-main-color{
+    border: 1px solid #DFE4E8;
+}
+
+input::placeholder{
+    color: #B2B2B2;
+}
+
+.danger{
+    background-color: #E03131;
+}
+
+.text-danger{
+    background-color: #E03131;
+}
+
+.sucess{
+    background-color: #08D58B;
+}
+
+.text-sucess{
+    color: #08D58B;
+}
