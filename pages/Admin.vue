@@ -1,13 +1,8 @@
 <script setup lang="ts">
+import type { Cat } from '@prisma/client';
+
 const { getCats, deleteCat } = useCat();
 const catStore = useCatStore();
-
-interface Cat {
-    id: number;
-    name: string;
-    description: string;
-    image: string;
-}
 
 const showNewCatModal = ref<boolean>(false);
 const showConfirmDeleteModal = ref<boolean>(false);
@@ -108,7 +103,18 @@ onMounted(async () => {
                 </table>
             </div>
         </div>
-        <ModalNewCat v-if="showNewCatModal" :type="modalType" :editingCatId="selectedCatId" @close-modal="showNewCatModal = false, selectedCatId = 0" :modalShow="showNewCatModal"/>
-        <ModalConfirmDelete @confirm-delete="confirmDeleteCat" @close-modal="showConfirmDeleteModal = false" :modalShow="showConfirmDeleteModal"/>
+        <ModalNewCat 
+            v-if="showNewCatModal" 
+            :type="modalType" 
+            :editingCatId="selectedCatId" 
+            @close-modal="showNewCatModal = false, 
+            selectedCatId = 0" 
+            :modalShow="showNewCatModal"
+        />
+        <ModalConfirmDelete 
+            @confirm-delete="confirmDeleteCat"
+            @close-modal="showConfirmDeleteModal = false" 
+            :modalShow="showConfirmDeleteModal"
+        />
     </div>
 </template>

@@ -1,7 +1,9 @@
 
 <script lang="ts" setup>
 import type { Cat } from '@prisma/client';
-
+import { formSchema } from '../schemas/catFormSchema';
+import type { ZodErrors } from '../types/zodErrors';
+import { formatZodErrors } from '../utils/formatZodErrors'
 
 const props = defineProps({
     modalShow: Boolean,
@@ -19,23 +21,41 @@ const emit = defineEmits(['closeModal']);
 const catStore = useCatStore()
 const { createCat, getCatById, editCat, getCats } = useCat();
 
-const name = ref<string>('');
-const image = ref<string>('');
-const description = ref<string>('');
+const catForm = ref({
+    name: '',
+    description: '',
+    image: ''
+})
 
 const handlerCloseModalClick = () => {
     emit('closeModal');
 }
 
-const handleSubmit = async function() {
-    if(props.type == 'create'){
-        await createCat({'id': null,'name': name.value, 'description': description.value, 'image': image.value});
-    }else{
-        await editCat({'id': props.editingCatId || null,'name': name.value, 'description': description.value, 'image': image.value});
+const errors = ref<ZodErrors>({});
+
+const validateForm = () => {
+    const result = formSchema.safeParse(catForm.value);
+
+    if (!result.success) {
+      errors.value = formatZodErrors(result.error.format());
+      return false;
     }
-    handlerCloseModalClick();
-    catStore.$reset();
-    getCats();
+
+    errors.value = {};
+    return true;
+};
+
+const handleSubmit = async function() {
+    if(validateForm()){
+        if(props.type == 'create'){
+            await createCat({'id': 0,'name': catForm.value.name, 'description': catForm.value.description, 'image': catForm.value.image});
+        }else{
+            await editCat({'id': props.editingCatId || 0,'name': catForm.value.name, 'description': catForm.value.description, 'image': catForm.value.image});
+        }
+        handlerCloseModalClick();
+        catStore.$reset();
+        getCats();
+    }
 }
 
 onMounted(async () => {
@@ -43,9 +63,9 @@ onMounted(async () => {
         if(props.editingCatId){
             await getCatById(props.editingCatId)
             const editingCat = catStore.getCat as Cat;
-            name.value = editingCat.name;
-            description.value = editingCat.description;
-            image.value = editingCat.image;
+            catForm.value.name = editingCat.name;
+            catForm.value.description = editingCat.description;
+            catForm.value.image = editingCat.image;
         }
     }
 })
@@ -78,14 +98,16 @@ const modalName =  computed(() => {
                                 Image
                             </label>
                             <input 
-                                v-model="image"
+                                v-model="catForm.image"
                                 type="text" 
                                 name="image" 
                                 id="image" 
                                 class="bg-white stroke text-secondary text-sm rounded-md block w-full p-2.5" 
                                 placeholder="URL" 
-                                required 
                             />
+                            <span class="text-[12px] text-red-500" v-if="errors.image">
+                                {{ Object.values(errors.image)[0] }}
+                            </span>
                         </div>
                         <div class="flex flex-col gap-2">
                             <label 
@@ -95,14 +117,16 @@ const modalName =  computed(() => {
                                 Name
                             </label>
                             <input 
-                                v-model="name"
+                                v-model="catForm.name"
                                 type="text" 
                                 name="name" 
                                 id="name" 
                                 class="bg-white stroke text-secondary text-sm rounded-md block w-full p-2.5" 
                                 placeholder="Enter the cat's name" 
-                                required 
                             />
+                            <span class="text-[12px] text-red-500" v-if="errors.name">
+                                {{ Object.values(errors.name)[0] }}
+                            </span>
                         </div>
                         <div class="flex flex-col gap-2">
                             <label 
@@ -112,14 +136,16 @@ const modalName =  computed(() => {
                                 Description
                             </label>
                             <textarea
-                                v-model="description"
+                                v-model="catForm.description"
                                 type="text" 
                                 name="description" 
                                 id="description" 
                                 class="bg-white stroke text-secondary text-sm rounded-md block w-full p-2.5" 
                                 placeholder="White here..." 
-                                required 
                             />
+                            <span class="text-[12px] text-red-500" v-if="errors.description">
+                                {{ Object.values(errors.description)[0] }}
+                            </span>
                         </div>
                         <div class="flex flex-row justify-end gap-4">
                             <button 

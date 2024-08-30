@@ -1,16 +1,9 @@
+import type { Cat } from '@prisma/client';
 import { defineStore } from 'pinia';
 
 interface CatState {
   cat: Object;
   cats: Array<Cat>;
-}
-
-
-interface Cat {
-    id: number | null;
-    name: string;
-    description: string;
-    image: string;
 }
 
 export const useCatStore = defineStore('cat', {

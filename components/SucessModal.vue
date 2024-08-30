@@ -4,6 +4,11 @@ defineProps({
   modalShow: Boolean,
 })
 
+const emit = defineEmits(['closeModal'])
+
+const handleCloseModal = () => {
+    emit('closeModal');
+}
 </script>
 
 <template>
@@ -23,7 +28,8 @@ defineProps({
                 </div>
                 <div class="p-4 md:p-5">
                     <div class="flex flex-row justify-end gap-4">
-                        <button 
+                        <button
+                            @click="handleCloseModal"
                             type="submit" 
                             class="stroke-main-color w-full text-white bg-main-color hover:bg-violet-950 focus:ring-4 focus:outline-none font-medium rounded-md text-[14px] px-5 py-2.5 text-center"
                         >

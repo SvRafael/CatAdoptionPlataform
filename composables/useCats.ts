@@ -1,10 +1,7 @@
+import type { Cat } from "@prisma/client";
+
 export function useCat() {
-interface Cat {
-    id: number | null;
-    name: string;
-    description: string;
-    image: string;
-}
+    
 const catStore = useCatStore();
 const data = ref<any[]>([]);
 const error = ref<string | null>(null);
@@ -34,7 +31,7 @@ const createCat = async ({name, description, image}: Cat) => {
 }
 
 const editCat = async ({id, name, description, image}: Cat) => {
-    const editedCat = await $fetch<Cat>('http://localhost:3000/api/v1/cats/'+id, {
+    await $fetch<Cat>('http://localhost:3000/api/v1/cats/'+id, {
         method: 'PUT',
         body: {
             id: id,
@@ -53,7 +50,6 @@ const deleteCat = async (id: number) => {
 
 const getCatById = async (id: number) => {
     const data = await $fetch<Cat[]>('http://localhost:3000/api/v1/cats/'+id)
-    console.log(data)
     catStore.addCat(data);
 }
 
