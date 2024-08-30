@@ -13,7 +13,6 @@ defineProps({
                 <div class="flex flex-col items-center gap-4 md:p-5">
                     <button type="button" class="bg-green-100 hover:bg-green-200 rounded-lg w-10 h-10 inline-flex justify-center items-center">
                         <Icon name="ic:round-check" class="text-sucess size-5"/>
-                        <span class="sr-only">Close modal</span>
                     </button>
                     <h3 class="text-[16px] font-semibold text-primary">
                         Application Submitted!
