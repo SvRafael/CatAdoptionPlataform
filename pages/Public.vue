@@ -29,11 +29,14 @@ onMounted(() => {
             </h1>
             <p class="font-medium text-secondaty text-[16px] mt-2">Explore our list of lovable cats looking for their forever homes.</p>
         </div>
-        <main class="grid grid-cols-4 gap-x-2 gap-y-8">
+        <main v-if="catStore.getCats.length > 0" class="grid grid-cols-4 gap-x-2 gap-y-8">
             <div v-for="cat in catStore.getCats">
-            <CatCard :catProps="cat" @adopt-cat-click="adoptCatClick"/>
-          </div>
+                <CatCard :catProps="cat" @adopt-cat-click="adoptCatClick"/>
+            </div>
         </main>
+        <div v-else class="text-24 font-semibold text-secondary opacity-40 h-full flex items-center justify-center">
+            There are no registered cats
+        </div>
         <SucessModal 
             :modalShow="showSucessModal"
             @close-modal="showSucessModal = false"

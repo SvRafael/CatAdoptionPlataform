@@ -10,6 +10,7 @@ const loginForm = ref({
     password: '',
 })
 
+const loading = ref<boolean>(false);
 const errors = ref<ZodErrors>({});
 const errorMessage = ref<string>('')
 
@@ -25,14 +26,21 @@ const validateForm = () => {
     return true;
 };
 
+const redirectToPage = () => {
+    router.push('/public');
+};
+
 const handleLogin = async () => {
     if(validateForm()){
+        loading.value = true
         try {
             errorMessage.value = ''
             await signIn(loginForm.value.name, loginForm.value.password);
+            loading.value = false
             return router.push('/Admin');
         } catch (error) {
             errorMessage.value = (error as Error).message;
+            loading.value = false
         }
     }
 };
@@ -118,12 +126,19 @@ const handleLogin = async () => {
                             {{ Object.values(errors.password)[0] }}
                         </span>
                     </div>
-                    <div class="w-full">
-                        <button 
+                    <div class="w-full flex flex-col gap-2">
+                        <button
+                            :disabled="loading"
                             type="submit" 
-                            class="w-full stroke-main-color text-white bg-main-color hover:bg-violet-950 focus:ring-4 focus:outline-none font-medium rounded-md text-[14px] px-5 py-2.5 text-center"
+                            class="w-full disabled:cursor-not-allowed disabled:bg-opacity-70 stroke-main-color text-white bg-main-color hover:bg-violet-950 focus:ring-4 focus:outline-none font-medium rounded-md text-[14px] px-5 py-2.5 text-center"
                         >
                             Login
+                        </button>
+                        <button 
+                            @click="redirectToPage"
+                            class="w-full border border-purple-900 text-main bg-white hover:text-white hover:bg-violet-950 focus:ring-4 focus:outline-none font-medium rounded-md text-[14px] px-5 py-2.5 text-center"
+                        >
+                            I want to adopt a cat
                         </button>
                     </div>
                 </form>

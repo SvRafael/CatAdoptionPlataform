@@ -135,6 +135,9 @@ definePageMeta({
                     </tbody>
                 </table>
             </div>
+            <div v-else class="text-24 font-semibold text-secondary opacity-40 h-full flex items-center justify-center">
+                There are no registered cats
+            </div>
         </div>
         <ModalNewCat 
             v-if="showNewCatModal" 
