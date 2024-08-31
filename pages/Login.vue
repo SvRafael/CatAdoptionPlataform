@@ -10,15 +10,30 @@ const loginForm = ref({
     password: '',
 })
 
+const errors = ref<ZodErrors>({});
 const errorMessage = ref<string>('')
 
+const validateForm = () => {
+    const result = formSchema.safeParse(loginForm.value);
+
+    if (!result.success) {
+      errors.value = formatZodErrors(result.error.format());
+      return false;
+    }
+
+    errors.value = {};
+    return true;
+};
+
 const handleLogin = async () => {
-    try {
-        errorMessage.value = ''
-         await signIn(loginForm.value.name, loginForm.value.password);
-        return router.push('/Admin');
-    } catch (error) {
-        errorMessage.value = (error as Error).message;
+    if(validateForm()){
+        try {
+            errorMessage.value = ''
+            await signIn(loginForm.value.name, loginForm.value.password);
+            return router.push('/Admin');
+        } catch (error) {
+            errorMessage.value = (error as Error).message;
+        }
     }
 };
 
@@ -74,6 +89,12 @@ const handleLogin = async () => {
                             class="bg-white stroke text-secondary text-sm rounded-md block w-full p-2.5" 
                             placeholder="Enter the user name" 
                         />
+                        <span 
+                            v-if="errors.name" 
+                            class="text-[12px] text-red-500"
+                        >
+                            {{ Object.values(errors.name)[0] }}
+                        </span>
                     </div>
                     <div class="flex flex-col gap-2">
                         <label 
@@ -90,6 +111,12 @@ const handleLogin = async () => {
                             class="bg-white stroke text-secondary text-sm rounded-md block w-full p-2.5" 
                             placeholder="Enter your password"  
                         />
+                        <span 
+                            v-if="errors.password" 
+                            class="text-[12px] text-red-500"
+                        >
+                            {{ Object.values(errors.password)[0] }}
+                        </span>
                     </div>
                     <div class="w-full">
                         <button 
