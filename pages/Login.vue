@@ -10,9 +10,21 @@ const loginForm = ref({
     password: '',
 })
 
+const passwordHidden = ref<boolean>(true);
 const loading = ref<boolean>(false);
 const errors = ref<ZodErrors>({});
 const errorMessage = ref<string>('')
+
+const togglePassword = () => {
+    let password = document.getElementById('password') as HTMLInputElement;
+    if(!passwordHidden.value){
+         password.type = 'password'
+         passwordHidden.value = true
+    }else{
+        password.type = 'text'
+        passwordHidden.value = false
+    }
+}
 
 const validateForm = () => {
     const result = formSchema.safeParse(loginForm.value);
@@ -104,7 +116,7 @@ const handleLogin = async () => {
                             {{ Object.values(errors.name)[0] }}
                         </span>
                     </div>
-                    <div class="flex flex-col gap-2">
+                    <div class="flex flex-col gap-2 password-container relative">
                         <label 
                             for="email" 
                             class="text-[14px] font-semibold text-main"
@@ -116,9 +128,21 @@ const handleLogin = async () => {
                             type="password" 
                             name="password" 
                             id="password" 
-                            class="bg-white stroke text-secondary text-sm rounded-md block w-full p-2.5" 
+                            class="bg-white stroke text-secondary text-sm rounded-md block w-full p-2.5 relative" 
                             placeholder="Enter your password"  
                         />
+                        <button @click="togglePassword" type="button" class="absolute end-0 top-10 z-20 px-3 cursor-pointer">
+                            <Icon
+                                v-if="passwordHidden"
+                                name="mdi:eye" 
+                                class="bg-main-color size-6 password-active:hidden"
+                            />
+                            <Icon
+                                v-else
+                                name="ion:eye-off" 
+                                class="bg-main-color size-6 password-active:hidden"
+                            />
+                        </button>
                         <span 
                             v-if="errors.password" 
                             class="text-[12px] text-red-500"
