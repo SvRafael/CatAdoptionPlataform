@@ -2,7 +2,7 @@ import type { Application } from "@prisma/client";
 
 export function useAdoption() {
     const createAdoption = async ({name, email, telephone, more, agree, catId}: Application) => {
-        await $fetch<Application>('http://localhost:3000/api/v1/cats/adoption', {
+        await $fetch<Application>('https://cat-adoption-plataform.vercel.app/api/v1/cats/adoption', {
             method: 'POST',
             body: {
                 name: name,
