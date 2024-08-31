@@ -53,15 +53,11 @@ const getCatById = async (id: number) => {
     catStore.addCat(data);
 }
 
-
-  return {
+return {
     getCats,
     createCat,
     editCat,
     deleteCat,
-    getCatById,
-    data,
-    error,
-    loading
-  };
+    getCatById
+};
 }

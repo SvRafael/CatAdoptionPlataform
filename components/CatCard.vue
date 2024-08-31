@@ -15,9 +15,10 @@ const handlerAdoptCat = () => {
 
 <template>
     <div class="max-w-[19rem] h-[25rem] flex flex-col stroke rounded-xl p-6 space-y-4">
-        <img 
-            class="relative h-44 w-64 rounded-xl" 
+        <img
             :src="props.catProps.image"
+            class="relative h-44 w-64 rounded-xl" 
+            
         />
         <h1 class="text-primary font-semibold text-[20px]">
             {{props.catProps.name}}
@@ -25,7 +26,10 @@ const handlerAdoptCat = () => {
         <p class="text-secondaty font-medium text-[14px] h-[5rem]">
             {{props.catProps.description}}
         </p>
-        <button @click="handlerAdoptCat" class="text-center bg-main-color hover:bg-violet-950 rounded-lg py-3 text-white font-medium text-[14px]">
+        <button 
+            @click="handlerAdoptCat" 
+            class="text-center bg-main-color hover:bg-violet-950 rounded-lg py-3 text-white font-medium text-[14px]"
+        >
             Adopt
         </button>
     </div>

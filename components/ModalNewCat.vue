@@ -48,9 +48,19 @@ const validateForm = () => {
 const handleSubmit = async function() {
     if(validateForm()){
         if(props.type == 'create'){
-            await createCat({'id': 0,'name': catForm.value.name, 'description': catForm.value.description, 'image': catForm.value.image});
+            await createCat({
+                'id': 0,
+                'name': catForm.value.name, 
+                'description': catForm.value.description, 
+                'image': catForm.value.image
+            });
         }else{
-            await editCat({'id': props.editingCatId || 0,'name': catForm.value.name, 'description': catForm.value.description, 'image': catForm.value.image});
+            await editCat({
+                'id': props.editingCatId || 0,
+                'name': catForm.value.name, 
+                'description': catForm.value.description, 
+                'image': catForm.value.image
+            });
         }
         handlerCloseModalClick();
         catStore.$reset();
@@ -71,25 +81,43 @@ onMounted(async () => {
 })
 
 const modalName =  computed(() => {
-  return props.type == 'create' ? 'Register New Cat' : 'Edit Cat';
+    return props.type == 'create' ? 'Register New Cat' : 'Edit Cat';
 })
 
 </script>
 <template>
-    <div v-if="props.modalShow" id="adoption-modal" tabindex="-1" aria-hidden="true" class="flex flex-row items-center justify-center mx-auto overflow-y-auto overflow-x-hidden fixed z-50 w-full md:inset-0 max-h-full bg-gray-800 bg-opacity-75">
+    <div 
+        v-if="props.modalShow" 
+        id="adoption-modal" 
+        tabindex="-1" 
+        aria-hidden="true" 
+        class="flex flex-row items-center justify-center mx-auto overflow-y-auto overflow-x-hidden fixed z-50 w-full md:inset-0 max-h-full bg-gray-800 bg-opacity-75"
+    >
         <div class="relative p-4 w-full max-w-md max-h-full">
             <div class="relative bg-white rounded-lg stroke">
                 <div class="flex items-center justify-between p-4 md:p-5 border-b rounded-t">
                     <h3 class="text-xl font-semibold text-primary">
                         {{ modalName }}
                     </h3>
-                    <button @click="handlerCloseModalClick" type="button" class="bg-red-200 hover:bg-red-300 rounded-full w-8 h-8 ms-auto inline-flex justify-center items-center">
-                        <Icon name="mingcute:close-line" class="text-danger size-5"/>
-                        <span class="sr-only">Close modal</span>
+                    <button 
+                        @click="handlerCloseModalClick" 
+                        type="button" 
+                        class="bg-red-200 hover:bg-red-300 rounded-full w-8 h-8 ms-auto inline-flex justify-center items-center"
+                    >
+                        <Icon 
+                            name="mingcute:close-line" 
+                            class="text-danger size-5"
+                        />
+                        <span class="sr-only">
+                            Close modal
+                        </span>
                     </button>
                 </div>
                 <div class="p-4 md:p-5">
-                    <form class="space-y-4"  @submit.prevent="handleSubmit">
+                    <form  
+                        @submit.prevent="handleSubmit" 
+                        class="space-y-4"
+                    >
                         <div class="flex flex-col gap-2">
                             <label 
                                 for="image" 
@@ -105,7 +133,10 @@ const modalName =  computed(() => {
                                 class="bg-white stroke text-secondary text-sm rounded-md block w-full p-2.5" 
                                 placeholder="URL" 
                             />
-                            <span class="text-[12px] text-red-500" v-if="errors.image">
+                            <span 
+                                v-if="errors.image" 
+                                class="text-[12px] text-red-500"
+                            >
                                 {{ Object.values(errors.image)[0] }}
                             </span>
                         </div>
@@ -124,7 +155,10 @@ const modalName =  computed(() => {
                                 class="bg-white stroke text-secondary text-sm rounded-md block w-full p-2.5" 
                                 placeholder="Enter the cat's name" 
                             />
-                            <span class="text-[12px] text-red-500" v-if="errors.name">
+                            <span 
+                                v-if="errors.name" 
+                                class="text-[12px] text-red-500"
+                            >
                                 {{ Object.values(errors.name)[0] }}
                             </span>
                         </div>
@@ -143,7 +177,10 @@ const modalName =  computed(() => {
                                 class="bg-white stroke text-secondary text-sm rounded-md block w-full p-2.5" 
                                 placeholder="White here..." 
                             />
-                            <span class="text-[12px] text-red-500" v-if="errors.description">
+                            <span 
+                                v-if="errors.description" 
+                                class="text-[12px] text-red-500"
+                            >
                                 {{ Object.values(errors.description)[0] }}
                             </span>
                         </div>

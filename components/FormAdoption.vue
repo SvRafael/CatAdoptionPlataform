@@ -70,20 +70,38 @@ const handlerCloseModalClick = () => {
 
 </script>
 <template>
-    <div v-if="props.modalShow" id="adoption-modal" tabindex="-1" aria-hidden="true" class="flex flex-row items-center justify-center mx-auto overflow-y-auto overflow-x-hidden fixed z-50 w-full md:inset-0 max-h-full bg-gray-800 bg-opacity-75">
+    <div 
+        v-if="props.modalShow" 
+        id="adoption-modal" 
+        tabindex="-1" 
+        aria-hidden="true" 
+        class="flex flex-row items-center justify-center mx-auto overflow-y-auto overflow-x-hidden fixed z-50 w-full md:inset-0 max-h-full bg-gray-800 bg-opacity-75"
+    >
         <div class="relative p-4 w-full max-w-md max-h-full">
             <div class="relative bg-white rounded-lg stroke">
                 <div class="flex items-center justify-between p-4 md:p-5 border-b rounded-t">
                     <h3 class="text-xl font-semibold text-primary">
                         Adoption Form
                     </h3>
-                    <button @click="handlerCloseModalClick" type="button" class="bg-red-200 hover:bg-red-300 rounded-full w-8 h-8 ms-auto inline-flex justify-center items-center">
-                        <Icon name="mingcute:close-line" class="text-danger size-5"/>
-                        <span class="sr-only">Close modal</span>
+                    <button 
+                        @click="handlerCloseModalClick" 
+                        type="button" 
+                        class="bg-red-200 hover:bg-red-300 rounded-full w-8 h-8 ms-auto inline-flex justify-center items-center"
+                    >
+                        <Icon 
+                            name="mingcute:close-line" 
+                            class="text-danger size-5"
+                        />
+                        <span class="sr-only">
+                            Close modal
+                        </span>
                     </button>
                 </div>
                 <div class="p-4 md:p-5">
-                    <form class="space-y-4" @submit.prevent="handleSubmit">
+                    <form 
+                        class="space-y-4" 
+                        @submit.prevent="handleSubmit"
+                    >
                         <div class="flex flex-col gap-2">
                             <label 
                                 for="email" 
@@ -99,7 +117,10 @@ const handlerCloseModalClick = () => {
                                 class="bg-white stroke text-secondary text-sm rounded-md block w-full p-2.5" 
                                 placeholder="Enter your full name" 
                             />
-                            <span class="text-[12px] text-red-500" v-if="errors.name">
+                            <span 
+                                v-if="errors.name" 
+                                class="text-[12px] text-red-500"
+                            >
                                 {{ Object.values(errors.name)[0] }}
                             </span>
                         </div>
@@ -118,7 +139,10 @@ const handlerCloseModalClick = () => {
                                 class="bg-white stroke text-secondary text-sm rounded-md block w-full p-2.5" 
                                 placeholder="Enter your email" 
                             />
-                            <span class="text-[12px] text-red-500" v-if="errors.email">
+                            <span 
+                                v-if="errors.email" 
+                                class="text-[12px] text-red-500"
+                            >
                                 {{ Object.values(errors.email)[0] }}
                             </span>
                         </div>
@@ -137,7 +161,10 @@ const handlerCloseModalClick = () => {
                                 class="bg-white stroke text-secondary text-sm rounded-md block w-full p-2.5" 
                                 placeholder="Enter your telephone"  
                             />
-                            <span class="text-[12px] text-red-500" v-if="errors.telephone">
+                            <span 
+                                v-if="errors.telephone" 
+                                class="text-[12px] text-red-500"
+                            >
                                 {{ Object.values(errors.telephone)[0] }}
                             </span>
                         </div>
@@ -156,23 +183,42 @@ const handlerCloseModalClick = () => {
                                 class="bg-white stroke text-secondary text-sm rounded-md block w-full p-2.5" 
                                 placeholder="White here..." 
                             />
-                            <span class="text-[12px] text-red-500" v-if="errors.more">
+                            <span 
+                                v-if="errors.more" 
+                                class="text-[12px] text-red-500"
+                            >
                                 {{ Object.values(errors.more)[0] }}
                             </span>
                         </div>
                         <div class="flex justify-between">
                             <div class="flex items-start">
                                 <div class="flex items-center h-5">
-                                    <input id="iagree" type="checkbox" v-model="adoptionForm.agree" class="w-4 h-4 border border-gray-300 rounded bg-gray-50 focus:ring-3" />
+                                    <input 
+                                        v-model="adoptionForm.agree" 
+                                        id="iagree" 
+                                        type="checkbox" 
+                                        class="w-4 h-4 border border-gray-300 rounded bg-gray-50 focus:ring-3" 
+                                    />
                                 </div>
-                                <label for="iagree" class="ms-2 text-[14px] font-medium text-secondary">I agree to take care of this cat</label>
+                                <label 
+                                    for="iagree" 
+                                    class="ms-2 text-[14px] font-medium text-secondary"
+                                >
+                                    I agree to take care of this cat
+                                </label>
                             </div>
                         </div>
-                        <span class="text-[12px] text-red-500" v-if="errors.agree">
+                        <span 
+                            v-if="errors.agree" 
+                            class="text-[12px] text-red-500"
+                        >
                             {{ Object.values(errors.agree)[0] }}
                         </span>
                         <div class="flex flex-row justify-end gap-4">
-                            <button @click="handlerCloseModalClick" class="stroke bg-gray-50 hover:bg-gray-100 focus:ring-4 focus:outline-none font-medium rounded-md text-[14px] px-5 py-2.5 text-center">
+                            <button 
+                                @click="handlerCloseModalClick" 
+                                class="stroke bg-gray-50 hover:bg-gray-100 focus:ring-4 focus:outline-none font-medium rounded-md text-[14px] px-5 py-2.5 text-center"
+                            >
                                 Cancel
                             </button>
                             <button 

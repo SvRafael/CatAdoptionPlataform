@@ -36,6 +36,9 @@ onMounted(async () => {
     await getCats()
 })
 
+definePageMeta({
+  middleware: 'auth'
+});
 
 </script>
 <template>
@@ -43,11 +46,18 @@ onMounted(async () => {
         <div class="flex flex-col w-2/12 stroke">
             <HeaderPage class="justify-center"/>
             <div class="pt-12">
-                <span class="px-10 text-[14px] text-secondary font-semibold">MAIN MENU</span>
+                <span class="px-10 text-[14px] text-secondary font-semibold">
+                    MAIN MENU
+                </span>
                 <ul class="py-8 px-8">
                     <li class="flex flex-row gap-6 text-main cursor-pointer hover:bg-[#4E2096] py-1.5 px-2 hover:rounded-lg hover:text-white">
-                        <Icon name="solar:cat-bold" class="size-6"/>
-                        <span class="text-[16px] font font-semibold">Cat list</span>
+                        <Icon 
+                            name="solar:cat-bold" 
+                            class="size-6"
+                        />
+                        <span class="text-[16px] font font-semibold">
+                            Cat list
+                        </span>
                     </li>
                 </ul>
             </div>
@@ -56,9 +66,14 @@ onMounted(async () => {
             <div class="flex flex-row justify-between">
                 <div class="flex flex-row items-center gap-4">
                     <label class="flex items-center bg-blue-100 px-3 py-2.5 rounded-lg">
-                        <Icon name="solar:cat-bold" class="text-main size-9"/>
+                        <Icon 
+                            name="solar:cat-bold" 
+                            class="text-main size-9"
+                        />
                     </label>
-                    <h1 class="text-[24px] text-primary font-semibold">Cat List</h1>
+                    <h1 class="text-[24px] text-primary font-semibold">
+                        Cat List
+                    </h1>
                 </div>
                 <button 
                     @click="handleNewCatClick"
@@ -67,7 +82,10 @@ onMounted(async () => {
                     New Cat
                 </button>
             </div>
-            <div v-if="catStore.getCats.length > 0" class="mt-8 stroke rounded-lg bg-white px-4">
+            <div 
+                v-if="catStore.getCats.length > 0" 
+                class="mt-8 stroke rounded-lg bg-white px-4"
+            >
                 <table class="min-w-full ">
                     <thead class="text-main text-[14px]">
                         <tr class="px-4 py-4">
@@ -78,7 +96,10 @@ onMounted(async () => {
                         </tr>
                     </thead>
                     <tbody>
-                        <tr v-for="cat in catStore.getCats as Cat[]" class="text-[14px] text-secondary border-t-2 border-t-[#DFE4E8]">
+                        <tr 
+                            v-for="cat in catStore.getCats as Cat[]"
+                            class="text-[14px] text-secondary border-t-2 border-t-[#DFE4E8]"
+                        >
                             <td class="text-start py-6 px-4">
                                 <div class="h-[3rem] w-[3rem] rounded-full">
                                     <img
@@ -91,11 +112,23 @@ onMounted(async () => {
                             <td class="text-start py-6 px-4 ">{{ cat.name }}</td>
                             <td class="text-start py-6 px-4 ">{{ cat.description }}</td>
                             <td class="flex items-end justify-end py-6 px-4">
-                                <button @click="handleEditCatClick(cat)" class="flex justify-center bg-blue-100 text-primary py-2 px-3 rounded hover:bg-[#4E2096] hover:text-white">
-                                    <Icon name="mdi:pencil" class="size-5"/>
+                                <button 
+                                    @click="handleEditCatClick(cat)" 
+                                    class="flex justify-center bg-blue-100 text-primary py-2 px-3 rounded hover:bg-[#4E2096] hover:text-white"
+                                >
+                                    <Icon 
+                                        name="mdi:pencil" 
+                                        class="size-5"
+                                    />
                                 </button>
-                                <button @click="handleDeleteCatClick(cat)" class="flex justify-center bg-red-100 text-danger hover:text-white py-2 px-3 rounded hover:bg-red-600 ml-2">
-                                    <Icon name="mdi:trash" class="size-5"/>
+                                <button 
+                                    @click="handleDeleteCatClick(cat)" 
+                                    class="flex justify-center bg-red-100 text-danger hover:text-white py-2 px-3 rounded hover:bg-red-600 ml-2"
+                                >
+                                    <Icon 
+                                        name="mdi:trash" 
+                                        class="size-5"
+                                    />
                                 </button>
                             </td>
                         </tr>
