@@ -9,7 +9,7 @@ const loading = ref(true);
 
 const getCats = async () => {
     try {
-        const data = await $fetch<Cat[]>('https://cat-adoption-plataform.vercel.app/api/v1/cats')
+        const data = await $fetch<Cat[]>('https://cat-adoption-plataform.vercel.app//api/v1/cats')
         catStore.addCats(data || []);
     } catch (err) {
         error.value = 'Erro ao buscar dados';

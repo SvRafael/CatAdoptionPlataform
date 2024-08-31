@@ -3,11 +3,11 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "build": "nuxt build",
+    "build": "prisma migrate deploy && nuxt build",
     "dev": "nuxt dev",
     "generate": "nuxt generate",
     "preview": "nuxt preview",
-    "postinstall": "nuxt prepare"
+    "postinstall": "nuxt prepare && prisma generate"
   },
   "dependencies": {
     "@fontsource/inter": "^5.0.20",

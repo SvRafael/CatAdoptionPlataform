@@ -24,7 +24,6 @@ export const useCatStore = defineStore('cat', {
   actions: {
     addCat(cat_param:Object) {
       this.cat = cat_param
-      localStorage.setItem('loggedUser', JSON.stringify(cat_param));
     },
     addCats(cats_param:Cat[]){
         this.cats = cats_param as Cat[]
